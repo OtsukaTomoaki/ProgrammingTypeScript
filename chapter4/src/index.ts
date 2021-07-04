@@ -54,3 +54,9 @@ function sumVariadicSafe(...numbers: number[]): number {
     return numbers.reduce((total, n) => total + n, 0);
 }
 console.log(sumVariadicSafe(1, 3, 5, 7));
+
+//thisの型付け
+function fancyDate(this : Date) {
+    return `${this.getMonth() + 1}/${this.getDate()}/${this.getFullYear()}`;
+}
+console.log(fancyDate.call(new Date));
