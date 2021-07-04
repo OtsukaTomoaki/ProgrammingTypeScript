@@ -60,3 +60,28 @@ function fancyDate(this : Date) {
     return `${this.getMonth() + 1}/${this.getDate()}/${this.getFullYear()}`;
 }
 console.log(fancyDate.call(new Date));
+
+//ジェネレーター
+function* createFibonacciGenerator() {
+    let a = 0;
+    let b = 1;
+    while (true) {
+        yield a;
+        [a, b] = [b, a + b];
+    }
+}
+let fibonacci = createFibonacciGenerator();
+console.log('fibonacci', fibonacci.next());
+console.log('fibonacci', fibonacci.next());
+console.log('fibonacci', fibonacci.next());
+
+function* createNumbers(): Generator<number> {
+    let n = 0;
+    while(1) {
+        yield n++;
+    }
+}
+let numbers = createNumbers();
+console.log('numbers', numbers.next());
+console.log('numbers', numbers.next());
+console.log('numbers', numbers.next());
