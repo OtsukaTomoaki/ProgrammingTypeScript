@@ -1,5 +1,6 @@
 //関数宣言と呼び出し
 
+import { SourceMap } from "module";
 import { isContext } from "vm";
 
 //名前つき関数
@@ -42,3 +43,14 @@ function log2(message : string, context : Context = {}) {
 }
 log2('Thumbnail viewed');
 log2('Preview viewed', { appId : 'hoge', userId : 'da753be'});
+
+//レストパラメータ
+function sum(numbers : number[]): number {
+    return numbers.reduce((total, n) => total + n, 0);
+}
+console.log(sum([1, 2, 4]));
+
+function sumVariadicSafe(...numbers: number[]): number {
+    return numbers.reduce((total, n) => total + n, 0);
+}
+console.log(sumVariadicSafe(1, 3, 5, 7));
