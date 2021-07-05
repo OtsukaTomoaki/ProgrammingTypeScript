@@ -40,16 +40,6 @@ type ChessFile = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H';
 type ChessRank = 1 | 2 | 3 | 4 | 5 | 6 | 7| 8;
 
 //インンターフェース
-// interface Sushi {
-//     calories: number,
-//     salty: boolean,
-//     tasty: boolean
-// }
-// type Cake = {
-//     calories: number,
-//     sweet: boolean,
-//     tasty: boolean
-// }
 type Food = {
     calories: number,
     tasty: boolean
@@ -75,3 +65,36 @@ interface ICake extends IFood {
 }
 const iSushi: ISushi = { calories: 130, tasty: false, salty: true };
 console.log(iSushi);
+
+//宣言のマージ
+interface User {
+    name: string
+}
+interface User {
+    age: number
+}
+
+let a: User = {
+    name: 'ootsuka',
+    age: 28
+}
+console.log(a);
+
+//実装
+interface Animal {
+    readonly name: string,
+    eat(food: string): void,
+    sleep(hours: number): void
+}
+class Cat implements Animal {
+    name = 'Miu'
+    eat(food: string) {
+        console.info('Ate sime', food, '. Mmm!');
+    }
+    sleep(hours: number) {
+        console.info('Slept for', hours, 'hours');
+    }
+}
+
+let cat = new Cat();
+cat.sleep(4);
