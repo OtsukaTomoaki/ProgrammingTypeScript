@@ -39,3 +39,39 @@ type ChessColor = 'Black' | 'White';
 type ChessFile = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H';
 type ChessRank = 1 | 2 | 3 | 4 | 5 | 6 | 7| 8;
 
+//インンターフェース
+// interface Sushi {
+//     calories: number,
+//     salty: boolean,
+//     tasty: boolean
+// }
+// type Cake = {
+//     calories: number,
+//     sweet: boolean,
+//     tasty: boolean
+// }
+type Food = {
+    calories: number,
+    tasty: boolean
+}
+type Sushi = Food & {
+    salty: boolean
+}
+type Cake = Food & {
+    sweet: boolean
+}
+const cake : Cake = { calories: 100, tasty: false, sweet: true };
+console.log(cake);
+
+interface IFood {
+    calories: number,
+    tasty: boolean
+}
+interface ISushi extends IFood {
+    salty: boolean
+}
+interface ICake extends IFood {
+    sweet: boolean
+}
+const iSushi: ISushi = { calories: 130, tasty: false, salty: true };
+console.log(iSushi);
