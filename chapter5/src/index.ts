@@ -118,3 +118,45 @@ let poodle = new Poodle;
 
 ambleAround(zebra);//OK!
 ambleAround(poodle);//OK!
+
+//クラスは値と型の両方を宣言する
+//値
+let hoge = 1999;
+function fuga() {
+    console.info('b done.');
+}
+//型
+type hoge = number;
+interface fuga {
+    (): void;
+}
+//typescriptでは、値と型の名前空間が別々に分けられている
+//変数の使い方によってtypescriptはそれ型と値どちらとして解決するかを理解する
+if (hoge + 1 > 3) console.log();//値
+let piyo: hoge = 3;//型
+
+//StringDatabase
+type State = {
+    [key: string]: string;
+}
+class StringDatabase {
+    state: State = {}
+    get(key: string): string | null {
+        return key in this.state ? this.state[key] : null;
+    }
+    set(key: string, value: string): void {
+        this.state[key] = value;
+    }
+    static from(state: State) {
+        let db = new StringDatabase;
+        for(let key in state) {
+            db.set(key, state[key])
+        }
+        return db
+    }
+}
+
+let state: State = {'hoge': '1', 'fuga': '2', 'piyo': '3'}
+let database = StringDatabase.from(state)
+database.set('hogehoge', '4')
+console.log(database)
