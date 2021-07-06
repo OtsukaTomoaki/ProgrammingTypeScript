@@ -98,3 +98,23 @@ class Cat implements Animal {
 
 let cat = new Cat();
 cat.sleep(4);
+
+//構造的なクラス型付け
+class Zebra {
+    trot() {
+        console.info('trot.')
+    }
+}
+class Poodle {
+    trot() {
+        console.info('trot.')
+    }
+}
+function ambleAround(animal: Zebra) {
+    animal.trot();
+}
+let zebra = new Zebra;
+let poodle = new Poodle;
+
+ambleAround(zebra);//OK!
+ambleAround(poodle);//OK!
