@@ -23,3 +23,29 @@ let Shoe = {
 }
 let boot = Shoe.create('boot')
 console.log(boot)
+
+//ビルダーパターン
+class RequestBuilder {
+    private data: object | null = null
+    private method: 'get' | 'post' | null = null
+    private url : string | null = null
+    setMethod(method: 'get' | 'post'): this {
+        this.method = method
+        return this
+    }
+    setData(data: object): this {
+        this.data = data
+        return this
+    }
+    setURL(url: string): this {
+        this.url = url
+        return this
+    }
+    send() {
+        console.info(`send ${this.url}`)
+        return
+    }
+}
+
+let reqBuilder = new RequestBuilder
+reqBuilder.setMethod('get').setURL('https://hogehoge.co.jp').send()
