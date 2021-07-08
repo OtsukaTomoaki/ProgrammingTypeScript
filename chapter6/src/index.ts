@@ -37,3 +37,22 @@ function parseWidth(width: number | string | null | undefined): Width | null {
     //どれでもなければnullを返す
     return null
 }
+
+//タグ付き合併型
+type UserTextEvent = {type: 'TextEvent', value: string, target: string}
+type UserMouseEvent = {type: 'MouseEvent', value: [number, number], target: number}
+
+type UserEvent = UserTextEvent | UserMouseEvent
+
+function handle(event: UserEvent) {
+    if(event.type === 'TextEvent') {
+        console.log(event.value, typeof event.value) //string
+        console.log(event.target, typeof event.target)//string
+        return
+    }
+    console.log(event.value, typeof event.value)//[number, number]
+    console.log(event.target, typeof event.target)//number
+}
+
+handle({type: 'TextEvent', value:'hoge', target: 'fuga'})
+handle({type: 'MouseEvent', value:[2, 3], target: 4})
