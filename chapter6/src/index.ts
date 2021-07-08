@@ -56,3 +56,43 @@ function handle(event: UserEvent) {
 
 handle({type: 'TextEvent', value:'hoge', target: 'fuga'})
 handle({type: 'MouseEvent', value:[2, 3], target: 4})
+
+//高度なオブジェクト型
+//ルックアップ型
+type FriendList = {
+    count: number
+    frinends: {
+        firstName: string
+        lastName: string
+    }[]
+}
+type APIResponse = {
+    user: {
+        userId: string
+        friendList: FriendList
+    }
+}
+type APIResponse2 = {
+    user: {
+        userId: string
+        friendList: {
+            count: number
+            frineds: {
+                firstName: string
+                lastName: string
+            }[]
+        }
+    }
+}
+type FriendList2 = APIResponse['user']['friendList']//キーを指定して型を取得する
+
+function getAPIResponse(): APIResponse{
+    return
+}
+function renderFriendList(friendList: FriendList) {
+    return
+}
+let response = getAPIResponse()
+renderFriendList(response.user.friendList)
+
+
