@@ -160,3 +160,35 @@ let nextDay: Record<Weekday, Day> = {
     Fri: 'Sat'
 }
 console.log(nextDay)
+
+//マップ型の実装
+let nextDay2: {[K in Weekday]: Day} = {
+    Mon: 'Thu',
+    Tue: 'Wed',
+    Wed: 'Thu',
+    Thu: 'Fri',
+    Fri: 'Sat'
+}
+console.log(nextDay2)
+
+type Account = {
+    id: number
+    isEmploy: boolean
+    notes: string[]
+}
+//全てのフィールドを省略可能にします
+type OptionalAccount = {
+    [k in keyof Account]?: Account[k]
+}
+//全てのフィールドをnull許容にします
+type NullableAccount = {
+    [K in keyof Account]: Account[K] | null
+}
+//全てのフィールドを読み取り専用にします
+type ReadonlyAccount = {
+    readonly [K in keyof Account]: Account[K]
+}
+//全てのフィールドwp再び書き込みかのうにします
+type Account2 = {
+    -readonly [K in keyof ReadonlyAccount]: Account[K]
+}
