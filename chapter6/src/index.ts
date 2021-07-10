@@ -61,7 +61,7 @@ handle({type: 'MouseEvent', value:[2, 3], target: 4})
 //ルックアップ型
 type FriendList = {
     count: number
-    frinends: {
+    friends: {
         firstName: string
         lastName: string
     }[]
@@ -77,7 +77,7 @@ type APIResponse2 = {
         userId: string
         friendList: {
             count: number
-            frineds: {
+            friends: {
                 firstName: string
                 lastName: string
             }[]
@@ -86,13 +86,64 @@ type APIResponse2 = {
 }
 type FriendList2 = APIResponse['user']['friendList']//キーを指定して型を取得する
 
-function getAPIResponse(): APIResponse{
-    return
-}
-function renderFriendList(friendList: FriendList) {
-    return
-}
-let response = getAPIResponse()
-renderFriendList(response.user.friendList)
+// function getAPIResponse(): APIResponse{
+//     return
+// }
+// function renderFriendList(friendList: FriendList) {
+//     return
+// }
+// let response = getAPIResponse()
+// renderFriendList(response.user.friendList)
 
+//keyof演算子
+type ResponseKeys = keyof APIResponse2//user
+let responseKeys: ResponseKeys = 'user'
+type UserKeys = keyof APIResponse2['user'] //userId | friendList
+let userKeys: UserKeys = 'userId'
+type FriendListKeys = keyof APIResponse2['user']['friendList'] //count | friends
+let friendListKeys: FriendListKeys= 'friends'
+let friends: FriendList = { count:10, friends:[{firstName:'ootsuka', lastName: 'tomoaki'}]}
 
+function get<O extends object, K extends keyof O>(o: O, k: K): O[K] {
+    return o[k]
+}
+
+type ActivityLog = {
+    lastEvent: Date
+    events: {
+        id: string
+        timestamp: Date
+        type: 'Read' | 'Write'
+    }[]
+}
+let activityLog: ActivityLog = {
+    lastEvent: new Date(2021, 8, 10),
+    events: [{id: 'hoge', timestamp: new Date(2021, 7, 11), type: 'Read'}]}
+let lastEvent = get(activityLog, 'lastEvent')
+console.log('activityLog', activityLog)
+console.log('lastEvent', lastEvent)
+
+type Get = {
+    <
+        O extends object,
+        K1 extends keyof O
+    >(o: O, k1: K1): O[K1]
+    <
+        O extends object,
+        K1 extends keyof O,
+        K2 extends keyof O[K1]
+    >(o: O, k1: K1, k2: K2): O[K1][K2]
+    <
+        O extends object,
+        K1 extends keyof O,
+        K2 extends keyof O[K1],
+        K3 extends keyof O[K1][K2]
+    >(o: O, k1: K1, k2: K2, k3: K3): O[K1][K2][K3]
+}
+
+let get2: Get = (object: any, ...keys: string[]) => {
+    let result = object
+    keys.forEach(k => result = result[k])
+    return result
+}
+console.log(get2(activityLog, 'events', 0, 'type'))//Read | Write
