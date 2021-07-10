@@ -188,7 +188,37 @@ type NullableAccount = {
 type ReadonlyAccount = {
     readonly [K in keyof Account]: Account[K]
 }
-//全てのフィールドwp再び書き込みかのうにします
+//全てのフィールド
+//再び書き込みかのうにします
 type Account2 = {
     -readonly [K in keyof ReadonlyAccount]: Account[K]
 }
+
+//名前的型
+//型のブランド
+type CompanyID = string & {readonly bland: unique symbol}
+type OrderID = string & {readonly bland: unique symbol}
+type UserID = string & {readonly bland: unique symbol}
+type ID = CompanyID | OrderID | UserID
+
+function CompanyID(id: string) {
+    return id as CompanyID
+}
+function OrderID(id: string) {
+    return id as OrderID
+}
+function UserID(id: string) {
+    return id as UserID
+}
+
+function queryForUser(id: UserID) {
+    return id
+}
+
+let companyId = CompanyID('hogehoge')
+let orderID = OrderID('fugafuga')
+let userId = UserID('piyopiyo')
+
+//queryForUser(companyId)
+//queryForUser(orderID)
+queryForUser(userId)
